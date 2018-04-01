@@ -13,6 +13,8 @@ let countMoves = 0;
  */
 
 const deck = document.querySelector('.deck');
+const panel = document.querySelector('.score-panel');
+
 
 function setDeck() {
     shuffle(cards);
@@ -72,20 +74,45 @@ function matchCards(card1, card2) {
 
 function moveCounter() {
     countMoves += 1;
-    let movesNumber = document.querySelector('.moves');
-    let movesText = document.querySelector('.movesText');
+    let movesNumber = panel.querySelector('.moves');
+    let movesText = panel.querySelector('.moves-text');
 
     movesNumber.textContent = countMoves;
     if (countMoves === 1)
         movesText.textContent = 'Move';
     else {
-      movesText.textContent = 'Moves';
+        movesText.textContent = 'Moves';
     }
-    let stars = document.querySelector('.stars');
-    if (countMoves %  12 === 0 && stars.children.length > 1)
+    let stars = panel.querySelector('.stars');
+    if (countMoves %  12 === 0 && stars.children.length > 0)
         stars.children[0].remove();
 }
 
+
+function reset() {
+    open = [];
+    countMatched = 0;
+    countMoves = 0;
+    children = deck.children;
+    for (let i=0; i<children.length; i++)
+        children[i].classList.remove('open', 'show', 'match');
+    panel.querySelector('.moves').textContent = countMoves;
+    panel.querySelector('.moves-text').textContent = 'Moves';
+    let stars = panel.querySelector('.stars').childElementCount;
+    let deletedStars = getFragment(3 - stars);
+    panel.querySelector('.stars').appendChild(deletedStars);
+}
+
+
+function getFragment(number) {
+    let fragment = document.createDocumentFragment();
+    for (let i=0; i<number; i++) {
+        let li = document.createElement('li');
+        li.innerHTML = '<i class="fa fa-star"></i>';
+        fragment.appendChild(li);
+    }
+    return fragment;
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -101,9 +128,12 @@ function moveCounter() {
 setDeck();
 
 deck.addEventListener('click', function(event) {
-    console.log(!(event.target.classList.contains('.show')));
     if (!(event.target.classList.contains('show') || event.target.classList.contains('match'))) {
         showCard(event.target);
         checkCard(event.target);
     }
+});
+
+panel.querySelector('.restart').addEventListener('click', function() {
+    reset();
 });
