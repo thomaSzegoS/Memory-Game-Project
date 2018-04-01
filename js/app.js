@@ -13,7 +13,7 @@ function setDeck() {
     shuffle(cards);
     let deckLi = deck.getElementsByTagName('li');
     for (let i=0; i<deckLi.length; i++)
-        deckLi[i].querySelector('i').classList = 'fa' + cards[i];
+        deckLi[i].querySelector('i').classList = 'fa ' + cards[i];
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -31,6 +31,9 @@ function shuffle(array) {
     return array;
 }
 
+function showCard(card) {
+    card.classList.add('open', 'show');
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -44,3 +47,7 @@ function shuffle(array) {
  */
 
 setDeck();
+
+deck.addEventListener('click', function(event) {
+    showCard(event.target);
+});
