@@ -1,4 +1,8 @@
-let cards = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
+let cards = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt',
+'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb', 'fa-diamond', 'fa-paper-plane-o',
+'fa-anchor', 'fa-bolt', 'fa-cube', 'fa-leaf', 'fa-bicycle', 'fa-bomb'];
+let open = [];
+let countMatched = 0;
 
 /*
  * Display the cards on the page
@@ -35,6 +39,35 @@ function showCard(card) {
     card.classList.add('open', 'show');
 }
 
+function hideCards(card1, card2) {
+    open = [];
+    setTimeout(function() {
+        card1.classList.remove("open", "show");
+        card2.classList.remove("open", "show");
+      }, 1000);
+}
+
+function checkCard(currentCard) {
+      open.push(currentCard);
+      if (open.length === 2) {
+          let recentCard = open[0];
+          if (recentCard.children[0].className === currentCard.children[0].className)
+              matchCards(recentCard, currentCard);
+          else
+              hideCards(recentCard, currentCard);
+      }
+}
+
+function matchCards(card1, card2) {
+    countMatched += 1;
+    open = [];
+    card1.classList.add("match");
+    card2.classList.add("match");
+    if (countMatched === 8)
+        console.log("Congrats!")
+
+}
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -50,4 +83,5 @@ setDeck();
 
 deck.addEventListener('click', function(event) {
     showCard(event.target);
+    checkCard(event.target);
 });
