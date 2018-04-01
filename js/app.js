@@ -72,16 +72,20 @@ function matchCards(card1, card2) {
 
 function moveCounter() {
     countMoves += 1;
-    let movesNumber = document.querySelector(".moves");
+    let movesNumber = document.querySelector('.moves');
     let movesText = document.querySelector('.movesText');
 
     movesNumber.textContent = countMoves;
     if (countMoves === 1)
-        movesText.textContent = "Move";
+        movesText.textContent = 'Move';
     else {
-      movesText.textContent = "Moves";
+      movesText.textContent = 'Moves';
     }
+    let stars = document.querySelector('.stars');
+    if (countMoves %  12 === 0 && stars.children.length > 1)
+        stars.children[0].remove();
 }
+
 
 /*
  * set up the event listener for a card. If a card is clicked:
