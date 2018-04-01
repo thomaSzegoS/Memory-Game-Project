@@ -97,6 +97,9 @@ function moveCounter() {
 setDeck();
 
 deck.addEventListener('click', function(event) {
-    showCard(event.target);
-    checkCard(event.target);
+    console.log(!(event.target.classList.contains('.show')));
+    if (!(event.target.classList.contains('show') || event.target.classList.contains('match'))) {
+        showCard(event.target);
+        checkCard(event.target);
+    }
 });
