@@ -4,6 +4,7 @@ let cards = ['fa-diamond', 'fa-paper-plane-o', 'fa-anchor', 'fa-bolt',
 let open = [];
 let countMatched = 0;
 let countMoves = 0;
+let countClicks = 0;
 
 /*
  * Display the cards on the page
@@ -93,6 +94,7 @@ function reset() {
     open = [];
     countMatched = 0;
     countMoves = 0;
+    countClicks = 0;
     children = deck.children;
     for (let i=0; i<children.length; i++)
         children[i].classList.remove('open', 'show', 'match');
@@ -114,6 +116,15 @@ function getFragment(number) {
     return fragment;
 }
 
+
+function timeStart(start) {
+    let x = setInterval(function() {
+    let seconds = Math.floor((Date.now()-start) / 1000);
+    document.querySelector('.time').innerHTML = seconds;
+  }, 1000);
+}
+
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -127,12 +138,19 @@ function getFragment(number) {
 
 setDeck();
 
+
 deck.addEventListener('click', function(event) {
+    countClicks += 1;
     if (!(event.target.classList.contains('show') || event.target.classList.contains('match'))) {
         showCard(event.target);
         checkCard(event.target);
     }
+    if (countClicks === 1) {
+        let now = Date.now();
+        timeStart(now);
+    }
 });
+
 
 panel.querySelector('.restart').addEventListener('click', function() {
     reset();
