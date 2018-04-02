@@ -1,5 +1,5 @@
-# Memory Game Project
-Udacity - FEND Memory Game Project.
+# Udacity - FEND Memory Game Project
+[Click here to see the live version!](https://thomaszegos.github.io/Memory-Game-Project/)
 
 ## Table of Contents
 
