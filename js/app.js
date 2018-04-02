@@ -96,6 +96,7 @@ function reset() {
     countMoves = 0;
     countClicks = 0;
     children = deck.children;
+    clearInterval(timer);
     document.querySelector('.time').innerHTML = 0;
     for (let i=0; i<children.length; i++)
         children[i].classList.remove('open', 'show', 'match');
@@ -124,8 +125,6 @@ function timeStart(start) {
 }
 
 function gameOver() {
-    clearInterval(timer);
-    document.querySelector('.time').innerHTML = 0;
     gameOverContainer.querySelector('.game-moves').textContent = countMoves + ' Moves';
     let stars = panel.querySelector('.stars').childElementCount;
     if (stars === 1)
