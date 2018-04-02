@@ -157,7 +157,7 @@ setDeck();
 
 deck.addEventListener('click', function(event) {
     countClicks += 1;
-    if (!(event.target.classList.contains('show') || event.target.classList.contains('match'))) {
+    if (!(event.target.classList.contains('show') || event.target.classList.contains('match')) && event.target.tagName === "LI") {
         showCard(event.target);
         checkCard(event.target);
     }
