@@ -5,6 +5,7 @@ let open = [];
 let countMatched = 0;
 let countMoves = 0;
 let countClicks = 0;
+let timer;
 
 /*
  * Display the cards on the page
@@ -13,9 +14,10 @@ let countClicks = 0;
  *   - add each card's HTML to the page
  */
 
-const deck = document.querySelector('.deck');
+const container = document.querySelector('.container');
 const panel = document.querySelector('.score-panel');
-
+const deck = document.querySelector('.deck');
+const gameOverContainer = document.querySelector('.game-over-container');
 
 function setDeck() {
     shuffle(cards);
@@ -69,8 +71,7 @@ function matchCards(card1, card2) {
     card1.classList.add('match');
     card2.classList.add('match');
     if (countMatched === cards.length/2)
-        console.log("Congrats!");
-
+        gameOver();
 }
 
 function moveCounter() {
@@ -89,13 +90,13 @@ function moveCounter() {
         stars.children[0].remove();
 }
 
-
 function reset() {
     open = [];
     countMatched = 0;
     countMoves = 0;
     countClicks = 0;
     children = deck.children;
+    document.querySelector('.time').innerHTML = 0;
     for (let i=0; i<children.length; i++)
         children[i].classList.remove('open', 'show', 'match');
     panel.querySelector('.moves').textContent = countMoves;
@@ -104,7 +105,6 @@ function reset() {
     let deletedStars = getFragment(3 - stars);
     panel.querySelector('.stars').appendChild(deletedStars);
 }
-
 
 function getFragment(number) {
     let fragment = document.createDocumentFragment();
@@ -116,14 +116,32 @@ function getFragment(number) {
     return fragment;
 }
 
-
 function timeStart(start) {
-    let x = setInterval(function() {
+    timer = setInterval(function() {
     let seconds = Math.floor((Date.now()-start) / 1000);
     document.querySelector('.time').innerHTML = seconds;
   }, 1000);
 }
 
+function gameOver() {
+    clearInterval(timer);
+    document.querySelector('.time').innerHTML = 0;
+    gameOverContainer.querySelector('.game-moves').textContent = countMoves + ' Moves';
+    let stars = panel.querySelector('.stars').childElementCount;
+    if (stars === 1)
+        gameOverContainer.querySelector('.game-stars').textContent = stars + ' Star.';
+    else
+        gameOverContainer.querySelector('.game-stars').textContent = stars + ' Stars.';
+
+    container.style.display = 'none';
+    gameOverContainer.style.display = 'block';
+}
+
+function restart() {
+    reset();
+    gameOverContainer.style.display = 'none';
+    container.style.display = 'flex';
+}
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -138,7 +156,6 @@ function timeStart(start) {
 
 setDeck();
 
-
 deck.addEventListener('click', function(event) {
     countClicks += 1;
     if (!(event.target.classList.contains('show') || event.target.classList.contains('match'))) {
@@ -151,7 +168,10 @@ deck.addEventListener('click', function(event) {
     }
 });
 
-
 panel.querySelector('.restart').addEventListener('click', function() {
     reset();
+});
+
+gameOverContainer.querySelector('.btn_restart').addEventListener('click', function() {
+    restart();
 });
