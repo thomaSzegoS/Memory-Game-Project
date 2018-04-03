@@ -85,7 +85,7 @@ function moveCounter() {
     else
         movesText.textContent = 'Moves';
 
-    if (countMoves %  16 === 0 && stars.children.length > 0)  // For every sixteen moves delete a star from the panel
+    if (countMoves %  12 === 0 && stars.children.length > 0)  // For every twelve moves delete a star from the score panel
         stars.children[0].remove();
 }
 
