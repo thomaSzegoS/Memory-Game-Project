@@ -41,7 +41,7 @@ h1 {
 .deck {
     width: 96%;
     max-width: 660px;
-    min-height: 680px;
+    max-height: 680px;
     background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
     padding: 32px;
     border-radius: 10px;
@@ -57,7 +57,7 @@ h1 {
     height: 125px;
     width: 125px;
     max-width: 100%;
-    margin: 10px;
+    margin: 5px;
     background: #2e3d49;
     font-size: 0;
     color: #fff;
@@ -95,13 +95,13 @@ h1 {
  */
 
 .score-panel {
-    margin-left: 7%;
     width: 96%;
     max-width: 345px;
-    margin-bottom: 10px;
+    justify-content: center;
     display: flex;
     flex-wrap: wrap;
-    font-size: 16px;
+    font-size: 17px;
+    margin-bottom: 7px;
 }
 
 .score-panel .stars {
@@ -117,7 +117,7 @@ h1 {
 }
 
 .fa-clock-o {
-    margin-left: 20px;
+    margin-left: 22px;
     margin-right: 2px;
 }
 
@@ -255,37 +255,67 @@ h1 {
  * Media queries
  */
 
- @media screen and (max-width: 380px) {
+ @media screen and (max-width: 360px) {
+   .deck {
+        padding: 18px;
+   }
+
+   .deck .card {
+     width: 56px;
+     height: 56px;
+   }
+ }
+
+ @media screen and (min-width: 360px) and (max-width: 400px) {
+   .deck {
+        padding: 22px;
+   }
+
+   .deck .card {
+     width: 65px;
+     height: 65px;
+   }
+ }
+
+ @media screen and (min-width: 400px) and (max-width: 445px) {
+   .deck {
+        padding: 26px;
+   }
+
+   .deck .card {
+     width: 72px;
+     height: 72px;
+   }
+ }
+
+ @media screen and (min-width: 445px) and (max-width: 490px) {
+   .deck {
+        padding: 26px;
+   }
+
+   .deck .card {
+     width: 80px;
+     height: 80px;
+   }
+ }
+
+ @media screen and (min-width: 490px) and (max-width: 530px) {
+   .deck .card {
+     width: 90px;
+     height: 90px;
+   }
+ }
+
+ @media screen and (min-width: 530px) and (max-width: 570px) {
    .deck .card {
      width: 100px;
      height: 100px;
    }
  }
 
- @media screen and (min-width: 380px) and (max-width: 430px) {
+ @media screen and (min-width: 570px) and (max-width: 630px) {
    .deck .card {
-     width: 130px;
-     height: 130px;
-   }
- }
-
- @media screen and (min-width: 430px) and (max-width: 470px) {
-   .deck .card {
-     width: 150px;
-     height: 150px;
-   }
- }
-
- @media screen and (min-width: 470px) and (max-width: 570px) {
-   .deck .card {
-     width: 170px;
-     height: 170px;
-   }
- }
-
- @media screen and (min-width: 570px) and (max-width: 670px) {
-   .deck .card {
-     width: 100px;
-     height: 100px;
+     width: 110px;
+     height: 110px;
    }
  }
